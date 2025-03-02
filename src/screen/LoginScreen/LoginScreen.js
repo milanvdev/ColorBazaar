@@ -15,7 +15,7 @@ const LoginScreen = () => {
       <View style={RStyle.headerContainer}>
         <Text style={RStyle.title}>Sign in to your Account</Text>
         <Text style={RStyle.subtitle}>
-          Enter your email and password to log in
+          Enter your email and password to log in 
         </Text>
       </View>
       <View>
