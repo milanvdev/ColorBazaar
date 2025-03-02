@@ -1,16 +1,23 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
 
-const Layout = ({children, style, statusBarStyle = 'dark-content'}) => {
+const Layout = ({
+  children,
+  style,
+  translucent = true,
+  statusBarStyle = 'dark-content',
+}) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar
         barStyle={statusBarStyle}
         backgroundColor="transparent"
-        translucent={true}
+        translucent={translucent}
       />
 
-      <ScrollView contentContainerStyle={[styles.content, style]}>
+      <ScrollView
+        contentContainerStyle={[styles.content, style]}
+        showsVerticalScrollIndicator={false}>
         {children}
       </ScrollView>
     </SafeAreaView>
@@ -20,7 +27,7 @@ const Layout = ({children, style, statusBarStyle = 'dark-content'}) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F7F8FF',
     paddingHorizontal: 24,
     paddingTop: StatusBar.currentHeight + 24,
   },

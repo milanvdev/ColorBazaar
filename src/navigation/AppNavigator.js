@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Auth">
+      <Stack.Navigator initialRouteName="Main">
         <Stack.Screen
           name="Main"
           component={BottomTabNavigator}
