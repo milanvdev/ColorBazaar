@@ -4,7 +4,7 @@ import styles from './AccountScreen.style';
 import AccountHeader from '../../components/Account/AccountHeader';
 import AccountBalanceCard from '../../components/Account/AccountBalanceCard';
 
-const AccountScreen = () => {
+const AccountScreen = ({navigation}) => {
   return (
     <>
       <StatusBar
@@ -14,7 +14,7 @@ const AccountScreen = () => {
       />
       <View style={styles.container}>
         <AccountHeader />
-        <AccountBalanceCard />
+        <AccountBalanceCard navigation={navigation} />
       </View>
     </>
   );

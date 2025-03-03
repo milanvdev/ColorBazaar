@@ -3,7 +3,7 @@ import {Fonts} from '../../style/fonts';
 
 export default StyleSheet.create({
   header: {
-    height: 250,
+    height: 224,
     position: 'relative',
     paddingTop: StatusBar.currentHeight + 24,
     paddingBottom: 24,
@@ -59,6 +59,9 @@ export default StyleSheet.create({
   balanceRow: {
     flexDirection: 'row',
   },
+  marginNegative: {
+    marginTop: -60,
+  },
   balanceAmount: {
     color: '#000',
     fontFamily: Fonts.PoppinsMedium,
@@ -66,5 +69,17 @@ export default StyleSheet.create({
   },
   refreshButton: {
     marginLeft: 8,
+  },
+  balanceOptions: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingTop: 10,
+  },
+  balanceOptionItem: {
+    alignItems: 'center',
+  },
+  optionText: {
+    fontFamily: Fonts.PoppinsMedium,
   },
 });
