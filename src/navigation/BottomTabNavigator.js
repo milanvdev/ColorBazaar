@@ -1,7 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screen/HomeScreen';
 import ActivityScreen from '../screen/ActivityScreen';
-import WalletScreen from '../screen/WalletScreen';
+import WalletScreen from '../screen/WalletScreen/WalletScreen';
 import AccountScreen from '../screen/AccountScreen/AccountScreen';
 
 const Tab = createBottomTabNavigator();

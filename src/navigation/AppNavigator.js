@@ -4,14 +4,13 @@ import BottomTabNavigator from './BottomTabNavigator';
 import AuthStackNavigator from './AuthNavigator';
 import DepositScreen from '../screen/AccountScreen/DepositScreen';
 import WithdrawScreen from '../screen/AccountScreen/WithdrawScreen';
-import WalletScreen from '../screen/AccountScreen/WalletScreen';
 
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="WalletScreen">
+      <Stack.Navigator initialRouteName="Main">
         <Stack.Screen
           name="Main"
           component={BottomTabNavigator}
@@ -24,11 +23,6 @@ const AppNavigator = () => {
         />
 
         {/* Account Screen Stack Goes Here */}
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="WalletScreen"
-          component={WalletScreen}
-        />
         <Stack.Screen
           options={{headerShown: false}}
           name="Deposit"
