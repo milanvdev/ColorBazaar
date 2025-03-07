@@ -26,7 +26,7 @@ const WalletScreenCardSection = () => {
   return (
     <View style={styles.balanceCard}>
       <View style={styles.balanceContainer}>
-        <Ionicons name="wallet-outline" size={30} color="black" />
+        <Ionicons name="wallet-outline" size={30} color="white" />
         <Text style={styles.balanceAmount}>$14,235.34</Text>
         <Text style={styles.balanceLabel}>Total balance</Text>
       </View>

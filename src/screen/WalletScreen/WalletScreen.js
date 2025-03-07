@@ -41,11 +41,11 @@ const WalletScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#1A1C26',
   },
   header: {
     paddingTop: StatusBar.currentHeight + 24,
     paddingHorizontal: 24,
-    backgroundColor: 'black',
     paddingBottom: 24,
   },
   headerRow: {

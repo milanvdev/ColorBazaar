@@ -1,22 +1,12 @@
-import {View, StatusBar} from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
-import styles from './AccountScreen.style';
-import AccountHeader from '../../components/Account/AccountHeader';
-import AccountBalanceCard from '../../components/Account/AccountBalanceCard';
+import Layout from '../../common/Layout';
 
-const AccountScreen = ({navigation}) => {
+const AccountScreen = () => {
   return (
-    <>
-      <StatusBar
-        backgroundColor="transparent"
-        translucent={true}
-        barStyle="light-content"
-      />
-      <View style={styles.container}>
-        <AccountHeader />
-        <AccountBalanceCard navigation={navigation} />
-      </View>
-    </>
+    <Layout statusBarStyle="light-content" translucent>
+      <Text>AccountScreen</Text>
+    </Layout>
   );
 };
 

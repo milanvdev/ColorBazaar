@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {Fonts} from '../../style/fonts';
+import {Colors} from '../../style/colors';
 
 export default StyleSheet.create({
   balanceCard: {
-    backgroundColor: 'white',
-    borderRadius: 16,
+    backgroundColor: '#272932',
+    borderRadius: 20,
     marginTop: 16,
     padding: 16,
   },
@@ -14,12 +15,12 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   balanceLabel: {
-    color: 'black',
+    color: '#7F7F7F',
     fontFamily: Fonts.PoppinsRegular,
     fontSize: 14,
   },
   balanceAmount: {
-    color: 'black',
+    color: 'white',
     fontFamily: Fonts.PoppinsBold,
     fontSize: 32,
   },
@@ -32,7 +33,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: 'black',
+    color: Colors[950],
     fontFamily: Fonts.PoppinsRegular,
     fontSize: 12,
     paddingTop: 4,

@@ -4,11 +4,12 @@ import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
 const Layout = ({
   children,
   style,
+  inlineStyle,
   translucent = true,
   statusBarStyle = 'dark-content',
 }) => {
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={[styles.safeArea, inlineStyle]}>
       <StatusBar
         barStyle={statusBarStyle}
         backgroundColor="transparent"
@@ -27,9 +28,9 @@ const Layout = ({
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F7F8FF',
+    backgroundColor: '#1A1C26',
     paddingHorizontal: 24,
-    paddingTop: StatusBar.currentHeight + 24,
+    paddingTop: StatusBar.currentHeight,
   },
 
   content: {

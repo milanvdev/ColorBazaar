@@ -4,6 +4,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import AuthStackNavigator from './AuthNavigator';
 import DepositScreen from '../screen/AccountScreen/DepositScreen';
 import WithdrawScreen from '../screen/AccountScreen/WithdrawScreen';
+import WinGoScreen from '../components/Home/WinGoScreen';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,14 @@ const AppNavigator = () => {
           options={{headerShown: false}}
           name="Withdraw"
           component={WithdrawScreen}
+        />
+
+        {/* Account Screen Stack Goes Here */}
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="WinGo"
+          component={WinGoScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
