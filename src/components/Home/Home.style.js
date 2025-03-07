@@ -23,6 +23,7 @@ export default StyleSheet.create({
     flex: 1,
     margin: 5,
     padding: 20,
+    //
     backgroundColor: '#272932',
     borderRadius: 16,
     alignItems: 'center',
