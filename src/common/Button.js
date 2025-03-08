@@ -12,7 +12,6 @@ const Button = ({
   disabled = false,
   loading = false,
   type = 'primary',
-  fullWidth = false,
   customStyle = {},
   textStyle = {},
 }) => {
@@ -20,19 +19,15 @@ const Button = ({
     <TouchableOpacity
       style={[
         styles.button,
-        type === 'secondary' ? styles.secondaryButton : styles.primaryButton,
+        styles.primaryButton,
         disabled && styles.disabledButton,
-        fullWidth && styles.fullWidth,
         customStyle,
       ]}
       activeOpacity={0.7}
       onPress={!loading && !disabled ? onPress : null}
       disabled={disabled}>
       {loading ? (
-        <ActivityIndicator
-          size="small"
-          color={type === 'secondary' ? '#007AFF' : '#fff'}
-        />
+        <ActivityIndicator size="small" color="#5921CB" />
       ) : (
         <Text
           style={[
@@ -56,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   primaryButton: {
-    backgroundColor: '#000',
+    backgroundColor: '#5921CB',
   },
   secondaryButton: {
     backgroundColor: 'transparent',

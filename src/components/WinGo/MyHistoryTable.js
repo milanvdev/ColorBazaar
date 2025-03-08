@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const WinGoScreen = () => {
+const MyHistoryTable = () => {
   return (
     <View>
-      <Text>WinGoScreen</Text>
+      <Text>MyHistoryTable</Text>
     </View>
   );
 };
 
-export default WinGoScreen;
+export default MyHistoryTable;

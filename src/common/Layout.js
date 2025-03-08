@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#1A1C26',
-    paddingHorizontal: 24,
-    paddingTop: StatusBar.currentHeight,
+    paddingHorizontal: 20,
+    paddingTop: StatusBar.currentHeight + 20,
   },
 
   content: {
