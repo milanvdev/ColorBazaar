@@ -4,7 +4,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import AuthStackNavigator from './AuthNavigator';
 import DepositScreen from '../screen/AccountScreen/DepositScreen';
 import WithdrawScreen from '../screen/AccountScreen/WithdrawScreen';
-import WinGoScreen from '../components/Home/WinGoScreen';
+import WinGoScreen from '../screen/WinGoScreen/WinGoScreen';
 
 const Stack = createStackNavigator();
 
