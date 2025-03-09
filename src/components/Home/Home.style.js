@@ -18,6 +18,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 5,
+    // 
   },
   gridItem: {
     flex: 1,
