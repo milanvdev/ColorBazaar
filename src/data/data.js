@@ -1,9 +1,9 @@
 import Entypo from 'react-native-vector-icons/Entypo';
-import BallOne from '../assets/svg/BallOne';
-import BallTwo from '../assets/svg/BallTwo';
-import BallThree from '../assets/svg/BallThree';
-import BallFour from '../assets/svg/BallFour';
-import BallFive from '../assets/svg/BallFive';
+import BallOne from '../assets/svg/BallOne.svg';
+import BallTwo from '../assets/svg/BallTwo.svg';
+import BallThree from '../assets/svg/BallThree.svg';
+import BallFour from '../assets/svg/BallFour.svg';
+import BallFive from '../assets/svg/BallFive.svg';
 
 export const balanceCard = [
   {
@@ -131,10 +131,12 @@ export const battingButton = [
   {
     id: 1,
     title: 'Big',
+    color: '#DD9138',
   },
   {
     id: 2,
     title: 'Small',
+    color: '#5088D3',
   },
 ];
 
@@ -194,32 +196,37 @@ export const firstTableData = [
 export const chartTableData = [
   {
     id: '1',
-    period: '3',
-    number: '20250308100052314',
+    period: '20250308100052314',
+    number: '3',
     winSymbol: 'S',
+    color: 'green',
   },
   {
     id: '2',
-    period: '1',
-    number: '20250308100052314',
+    period: '20250308100052314',
+    number: '1',
     winSymbol: 'B',
+    color: 'red',
   },
   {
     id: '3',
-    period: '4',
-    number: '20250308100052314',
+    period: '20250308100052314',
+    number: '4',
     winSymbol: 'B',
+    color: 'red',
   },
   {
     id: '4',
-    period: '6',
-    number: '20250308100052314',
+    period: '20250308100052314',
+    number: '6',
     winSymbol: 'B',
+    color: 'red',
   },
   {
     id: '5',
-    period: '7',
-    number: '20250308100052314',
+    period: '20250308100052314',
+    number: '7',
     winSymbol: 'S',
+    color: 'violet',
   },
 ];

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {View, Text, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import {
   battingButton,
   battingTableButton,
@@ -9,13 +9,33 @@ import {
   pullGameBallsData,
   winGoSecData,
 } from '../../data/data';
-import ClockIcon from '../../assets/svg/ClockIcon';
 import {generateInitialId, incrementLastPart} from '../../utils/helper';
 import Button from '../../common/Button';
 import styles from './Wingo.style';
 import GameHistoryTable from './GameHistoryTable';
 import ChartTable from './ChartTable';
 import MyHistoryTable from './MyHistoryTable';
+import TimerClock from '../../assets/svg/timerClock.svg';
+
+const BettingButton = memo(({title, activeXTitle, onPress}) => (
+  <TouchableOpacity
+    onPress={() => onPress(title)}
+    activeOpacity={0.7}
+    style={[
+      styles.bettingButton,
+      activeXTitle === title && styles.activeBettingButton,
+    ]}>
+    <Text
+      style={[
+        styles.bettingText,
+        {
+          color: activeXTitle === title ? 'white' : '#67696F',
+        },
+      ]}>
+      {title}
+    </Text>
+  </TouchableOpacity>
+));
 
 const WinGoGameSection = () => {
   const [selectedItem, setSelectedItem] = useState(winGoSecData[0].time);
@@ -27,30 +47,25 @@ const WinGoGameSection = () => {
   );
 
   useEffect(() => {
-    if (timeLeft === 0) {
-      setRandomId(incrementLastPart(randomId));
-      setTimeLeft(30);
-      return;
-    }
-    const timer = setInterval(
-      () => setTimeLeft(prevTime => prevTime - 1),
-      1000,
-    );
+    const timer = setInterval(() => {
+      setTimeLeft(prevTime => {
+        if (prevTime === 1) {
+          setRandomId(incrementLastPart(randomId));
+          return 30;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
     return () => clearInterval(timer);
-  }, [timeLeft]);
+  }, []);
 
-  const formatTime = seconds => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${secs
+  const formatTime = seconds =>
+    `${Math.floor(seconds / 60)
       .toString()
-      .padStart(2, '0')}`;
-  };
+      .padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
 
-  const getTableData = () => {
+  const getTableData = useCallback(() => {
     switch (activeTableBtn) {
-      case 'Game history':
-        return <GameHistoryTable />;
       case 'Chart':
         return <ChartTable />;
       case 'My history':
@@ -58,7 +73,7 @@ const WinGoGameSection = () => {
       default:
         return <GameHistoryTable />;
     }
-  };
+  }, [activeTableBtn]);
 
   return (
     <View>
@@ -73,7 +88,7 @@ const WinGoGameSection = () => {
               styles.itemContainer,
               selectedItem === item.time && styles.activeItem,
             ]}>
-            <ClockIcon />
+            <TimerClock />
             <View style={styles.textContainer}>
               <Text style={styles.itemTitle}>{item.title}</Text>
               <Text style={styles.itemTime}>{item.time}</Text>
@@ -110,9 +125,13 @@ const WinGoGameSection = () => {
 
       <View style={styles.buttonContainer}>
         <View style={styles.flexRowBetween}>
-          <Button title="Green" customStyle={styles.greenButton} />
-          <Button title="Violet" customStyle={styles.violetButton} />
-          <Button title="Red" customStyle={styles.redButton} />
+          {['Green', 'Violet', 'Red'].map((color, index) => (
+            <Button
+              key={index}
+              title={color}
+              customStyle={styles[`${color.toLowerCase()}Button`]}
+            />
+          ))}
         </View>
 
         <View style={styles.textBackground}>
@@ -122,28 +141,12 @@ const WinGoGameSection = () => {
         {/* Betting Selection Buttons */}
         <View style={styles.flexRowBetween}>
           {gameBattingData.map((item, index) => (
-            <TouchableOpacity
+            <BettingButton
               key={index}
-              onPress={() => setActiveXTitle(item.title)}
-              activeOpacity={0.7}
-              style={[
-                styles.bettingButton,
-                {
-                  backgroundColor:
-                    activeXTitle === item.title ? '#8C67F6' : 'transparent',
-                },
-              ]}>
-              <Text
-                style={[
-                  styles.bettingText,
-                  {
-                    fontSize: 12,
-                    color: activeXTitle === item.title ? 'white' : '#67696F',
-                  },
-                ]}>
-                {item.title}
-              </Text>
-            </TouchableOpacity>
+              title={item.title}
+              activeXTitle={activeXTitle}
+              onPress={setActiveXTitle}
+            />
           ))}
         </View>
 
@@ -152,7 +155,7 @@ const WinGoGameSection = () => {
             <Button
               key={index}
               title={item.title}
-              customStyle={styles.button}
+              customStyle={[styles.button, {backgroundColor: item.color}]}
             />
           ))}
         </View>
@@ -171,11 +174,10 @@ const WinGoGameSection = () => {
             title={item.title}
             customStyle={[
               styles.button,
+              index !== 0 && styles.buttonMargin,
+              activeTableBtn === item.title && styles.activeTableButton,
               {
                 width: 'auto',
-                backgroundColor:
-                  activeTableBtn === item.title ? '#8C67F6' : '#272932',
-                marginLeft: index !== 0 ? 10 : 0,
               },
             ]}
             textStyle={{fontSize: 14}}

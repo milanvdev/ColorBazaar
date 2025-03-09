@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import {View, Text, FlatList} from 'react-native';
 import React from 'react';
 import {firstTableData} from '../../data/data';
@@ -18,17 +19,18 @@ const renderItem = ({item}) => (
 const GameHistoryTable = () => {
   return (
     <View style={styles.container}>
-      <View style={[styles.row, styles.header]}>
-        <Text style={[styles.cell, styles.headerText]}>Period</Text>
-        <Text style={[styles.cell, styles.headerText]}>Number</Text>
-        <Text style={[styles.cell, styles.headerText]}>Big Small</Text>
-        <Text style={[styles.cell, styles.headerText]}>Color</Text>
-      </View>
-
       <FlatList
         data={firstTableData}
         keyExtractor={item => item.id}
         renderItem={renderItem}
+        ListHeaderComponent={() => (
+          <View style={[styles.row, styles.header]}>
+            <Text style={[styles.cell, styles.headerText]}>Period</Text>
+            <Text style={[styles.cell, styles.headerText]}>Number</Text>
+            <Text style={[styles.cell, styles.headerText]}>Big Small</Text>
+            <Text style={[styles.cell, styles.headerText]}>Color</Text>
+          </View>
+        )}
       />
     </View>
   );
