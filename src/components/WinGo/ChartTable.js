@@ -5,26 +5,25 @@ import styles from './Wingo.style';
 
 const ChartTable = () => {
   const renderItem = ({item}) => {
-    const periodNumber = parseInt(item.period, 10);
-    const minRange = Math.max(0, periodNumber - 5);
-    const maxRange = Math.min(9, periodNumber + 4);
-    const range = Array.from(
-      {length: maxRange - minRange + 1},
-      (_, i) => minRange + i,
-    );
+    const periodNumber = parseInt(item.number);
+    const numbersArray = Array.from({length: 10}, (_, i) => i);
     return (
       <View style={styles.row}>
-        <Text style={styles.cell}>{item.number}</Text>
-        {range.map((num, index) => (
-          <Text
-            key={index}
-            style={[
-              styles.cell,
-              num === periodNumber ? styles.highlightedCell : {},
-            ]}>
-            {num}
-          </Text>
-        ))}
+        <Text style={[styles.cell]}>{item.period}</Text>
+        <View style={styles.numberContainer}>
+          {numbersArray.map(num => (
+            <Text
+              key={num}
+              style={[
+                styles.cell,
+                periodNumber === num && styles.highlight,
+                {backgroundColor: periodNumber === num ? item.color : ''},
+              ]}>
+              {num}
+            </Text>
+          ))}
+          <Text style={styles.symbolText}>{item.winSymbol}</Text>
+        </View>
       </View>
     );
   };
