@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {View, Text, TouchableOpacity} from 'react-native';
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   battingButton,
   battingTableButton,
@@ -16,35 +16,20 @@ import GameHistoryTable from './GameHistoryTable';
 import ChartTable from './ChartTable';
 import MyHistoryTable from './MyHistoryTable';
 import TimerClock from '../../assets/svg/timerClock.svg';
-
-const BettingButton = memo(({title, activeXTitle, onPress}) => (
-  <TouchableOpacity
-    onPress={() => onPress(title)}
-    activeOpacity={0.7}
-    style={[
-      styles.bettingButton,
-      activeXTitle === title && styles.activeBettingButton,
-    ]}>
-    <Text
-      style={[
-        styles.bettingText,
-        {
-          color: activeXTitle === title ? 'white' : '#67696F',
-        },
-      ]}>
-      {title}
-    </Text>
-  </TouchableOpacity>
-));
+import BigSmallModal from '../../modal/BigSmallModal';
+import BettingOptions from '../../container/BettingOptions';
 
 const WinGoGameSection = () => {
   const [selectedItem, setSelectedItem] = useState(winGoSecData[0].time);
   const [timeLeft, setTimeLeft] = useState(30);
+  const [buttonTitle, setButtonTitle] = useState(null);
   const [randomId, setRandomId] = useState(generateInitialId());
   const [activeXTitle, setActiveXTitle] = useState(gameBattingData[0].title);
   const [activeTableBtn, setActiveTableBtn] = useState(
     battingTableButton[0].title,
   );
+  const [openBigSmallModal, setOpenBigSmallModal] = useState(false);
+  const [selectedBtnColor, setSelectedBtnColor] = useState(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -140,14 +125,11 @@ const WinGoGameSection = () => {
 
         {/* Betting Selection Buttons */}
         <View style={styles.flexRowBetween}>
-          {gameBattingData.map((item, index) => (
-            <BettingButton
-              key={index}
-              title={item.title}
-              activeXTitle={activeXTitle}
-              onPress={setActiveXTitle}
-            />
-          ))}
+          <BettingOptions
+            options={gameBattingData}
+            selectedOption={activeXTitle}
+            onSelect={setActiveXTitle}
+          />
         </View>
 
         <View style={styles.flexRowBetween}>
@@ -155,6 +137,11 @@ const WinGoGameSection = () => {
             <Button
               key={index}
               title={item.title}
+              onPress={() => {
+                setOpenBigSmallModal(true);
+                setButtonTitle(item.title);
+                setSelectedBtnColor(item.color);
+              }}
               customStyle={[styles.button, {backgroundColor: item.color}]}
             />
           ))}
@@ -186,6 +173,12 @@ const WinGoGameSection = () => {
       </View>
 
       {getTableData()}
+      <BigSmallModal
+        isVisible={openBigSmallModal}
+        onClose={() => setOpenBigSmallModal(false)}
+        buttonTitle={buttonTitle}
+        selectedBtnColor={selectedBtnColor}
+      />
     </View>
   );
 };

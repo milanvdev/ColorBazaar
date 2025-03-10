@@ -1,3 +1,6 @@
+import {Dimensions} from 'react-native';
+
+const {width} = Dimensions.get('window');
 export const generateInitialId = () => {
   const date = new Date();
   const year = date.getFullYear();
@@ -26,3 +29,5 @@ export const getColorDot = color => {
     .map(clr => colorMap[clr] || '')
     .join(' ');
 };
+
+export const dynamicFontSize = px => (px / 375) * width;

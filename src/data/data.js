@@ -230,3 +230,22 @@ export const chartTableData = [
     color: 'violet',
   },
 ];
+
+export const battingValue = [
+  {
+    id: 1,
+    number: 1,
+  },
+  {
+    id: 2,
+    number: 10,
+  },
+  {
+    id: 3,
+    number: 100,
+  },
+  {
+    id: 4,
+    number: 1000,
+  },
+];
