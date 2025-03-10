@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {lotteryGameCard} from '../../data/data';
@@ -5,9 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './Home.style';
 
 const LotteryGameCardSection = ({navigation}) => {
-  // eslint-disable-next-line react/no-unstable-nested-components
   const GridItem = ({item}) => {
-    console.log(item);
     return (
       <View style={styles.gridItem}>
         <Text style={styles.text}>{item.title}</Text>
