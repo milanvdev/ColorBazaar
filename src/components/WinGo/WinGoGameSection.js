@@ -1,5 +1,4 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-hooks/exhaustive-deps */
 import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
@@ -9,7 +8,6 @@ import {
   pullGameBallsData,
   winGoSecData,
 } from '../../data/data';
-import {generateInitialId, incrementLastPart} from '../../utils/helper';
 import Button from '../../common/Button';
 import styles from './Wingo.style';
 import GameHistoryTable from './GameHistoryTable';
@@ -18,12 +16,18 @@ import MyHistoryTable from './MyHistoryTable';
 import TimerClock from '../../assets/svg/timerClock.svg';
 import BigSmallModal from '../../modal/BigSmallModal';
 import BettingOptions from '../../container/BettingOptions';
+import {decrementTime} from '../../redux/slices/timerSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 const WinGoGameSection = () => {
+  const dispatch = useDispatch();
+
+  // Get Redux state
+  const timeLeft = useSelector(state => state.timer.timeLeft);
+  const randomId = useSelector(state => state.timer.randomId);
+
   const [selectedItem, setSelectedItem] = useState(winGoSecData[0].time);
-  const [timeLeft, setTimeLeft] = useState(30);
   const [buttonTitle, setButtonTitle] = useState(null);
-  const [randomId, setRandomId] = useState(generateInitialId());
   const [activeXTitle, setActiveXTitle] = useState(gameBattingData[0].title);
   const [activeTableBtn, setActiveTableBtn] = useState(
     battingTableButton[0].title,
@@ -33,16 +37,11 @@ const WinGoGameSection = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(prevTime => {
-        if (prevTime === 1) {
-          setRandomId(incrementLastPart(randomId));
-          return 30;
-        }
-        return prevTime - 1;
-      });
+      dispatch(decrementTime());
     }, 1000);
+
     return () => clearInterval(timer);
-  }, []);
+  }, [dispatch]);
 
   const formatTime = seconds =>
     `${Math.floor(seconds / 60)
