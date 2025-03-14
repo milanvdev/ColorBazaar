@@ -1,22 +1,27 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {memo, useState} from 'react';
+import React, {memo, useMemo} from 'react';
 import CommonModal from '../common/Modal';
-import {dynamicFontSize} from '../utils/helper';
 import {Fonts} from '../style/fonts';
 import Button from '../common/Button';
 import {battingValue, gameBattingData} from '../data/data';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import BettingOptions from '../container/BettingOptions';
+import {useDispatch, useSelector} from 'react-redux';
+import {decrement, increment} from '../redux/slices/counterSlice';
 
 const BigSmallModal = memo(
   ({isVisible, onClose, buttonTitle, selectedBtnColor}) => {
-    const [quantity, setQuantity] = useState(1);
-    const [selectedBet, setSelectedBet] = useState(null);
+    const dispatch = useDispatch();
+    const count = useSelector(state => state.counter.count);
+
+    const gameBattingMemoData = useMemo(() => {
+      return gameBattingData;
+    }, []);
 
     return (
       <CommonModal
         isVisible={isVisible}
-        modalContent={[styles.modalContentStyle]}
+        modalContent={styles.modalContentStyle}
         onClose={onClose}>
         <View
           style={[styles.headerContainer, {backgroundColor: selectedBtnColor}]}>
@@ -40,21 +45,18 @@ const BigSmallModal = memo(
           <View style={styles.quantityRow}>
             <Text style={styles.labelText}>Quantity</Text>
             <View style={styles.quantityControls}>
-              <TouchableOpacity
-                onPress={() => setQuantity(q => Math.max(1, q - 1))}>
+              <TouchableOpacity onPress={() => dispatch(decrement())}>
                 <AntDesign name="minuscircleo" size={20} color="white" />
               </TouchableOpacity>
-              <Text style={styles.quantityText}>{quantity}</Text>
-              <TouchableOpacity onPress={() => setQuantity(q => q + 1)}>
+              <Text style={styles.quantityText}>{count}</Text>
+              <TouchableOpacity onPress={() => dispatch(increment())}>
                 <AntDesign name="pluscircleo" size={20} color="white" />
               </TouchableOpacity>
             </View>
           </View>
           <BettingOptions
             containerStyle={styles.containerStyle}
-            options={gameBattingData}
-            selectedOption={selectedBet}
-            onSelect={setSelectedBet}
+            options={gameBattingMemoData}
           />
         </View>
         <View style={styles.buttonRow}>
@@ -77,17 +79,21 @@ const BigSmallModal = memo(
 );
 
 const styles = StyleSheet.create({
-  modalContentStyle: {},
+  modalContentStyle: {
+    overflow: 'hidden',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
   headerContainer: {
     alignItems: 'center',
   },
   winGoText: {
-    fontSize: dynamicFontSize(16),
+    fontSize: 16,
     fontFamily: Fonts.PoppinsMedium,
     color: 'white',
   },
   selectTitle: {
-    fontSize: dynamicFontSize(12),
+    fontSize: 12,
     fontFamily: Fonts.PoppinsMedium,
     color: 'white',
   },

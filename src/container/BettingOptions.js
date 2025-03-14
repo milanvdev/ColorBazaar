@@ -1,18 +1,21 @@
 import React, {memo} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {Fonts} from '../style/fonts';
+import {useDispatch, useSelector} from 'react-redux';
+import {setSelectedOption} from '../redux/slices/bettingOptionsSlice';
 
-const BettingOptions = ({
-  options,
-  onSelect,
-  selectedOption,
-  containerStyle,
-}) => {
+const BettingOptions = ({options, containerStyle}) => {
+  const dispatch = useDispatch();
+  const selectedOption = useSelector(
+    state => state.bettingOptions.selectedOption,
+  );
+
   return (
     <View style={[styles.container, containerStyle]}>
       {options.map((item, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => onSelect(item.title)}
+          onPress={() => dispatch(setSelectedOption(item.title))}
           activeOpacity={0.7}
           style={[
             styles.bettingButton,
@@ -35,6 +38,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   bettingButton: {
     paddingVertical: 10,
@@ -46,8 +50,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF9800',
   },
   bettingText: {
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontSize: 12,
+    fontFamily: Fonts.PoppinsMedium,
   },
 });
 

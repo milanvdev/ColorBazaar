@@ -1,6 +1,3 @@
-import {Dimensions} from 'react-native';
-
-const {width} = Dimensions.get('window');
 export const generateInitialId = () => {
   const date = new Date();
   const year = date.getFullYear();
@@ -11,9 +8,9 @@ export const generateInitialId = () => {
 };
 
 export const incrementLastPart = oldId => {
-  const fixedPart = oldId.slice(0, 8); // First 8 digits = YYYYMMDD
-  let numericPart = parseInt(oldId.slice(8), 10) + 1; // Last 9 digits +1 karvo
-  const newNumericPart = numericPart.toString().padStart(9, '0'); // 9-digit format maintain
+  const fixedPart = oldId.slice(0, 8);
+  let numericPart = parseInt(oldId.slice(8), 10) + 1;
+  const newNumericPart = numericPart.toString().padStart(9, '0');
   return fixedPart + newNumericPart;
 };
 
@@ -30,4 +27,7 @@ export const getColorDot = color => {
     .join(' ');
 };
 
-export const dynamicFontSize = px => (px / 375) * width;
+export const formatTime = seconds =>
+  `${Math.floor(seconds / 60)
+    .toString()
+    .padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;

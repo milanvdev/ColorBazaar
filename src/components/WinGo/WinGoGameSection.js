@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
@@ -18,6 +17,8 @@ import BigSmallModal from '../../modal/BigSmallModal';
 import BettingOptions from '../../container/BettingOptions';
 import {decrementTime} from '../../redux/slices/timerSlice';
 import {useDispatch, useSelector} from 'react-redux';
+import {formatTime} from '../../utils/helper';
+import {reset} from '../../redux/slices/counterSlice';
 
 const WinGoGameSection = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,6 @@ const WinGoGameSection = () => {
 
   const [selectedItem, setSelectedItem] = useState(winGoSecData[0].time);
   const [buttonTitle, setButtonTitle] = useState(null);
-  const [activeXTitle, setActiveXTitle] = useState(gameBattingData[0].title);
   const [activeTableBtn, setActiveTableBtn] = useState(
     battingTableButton[0].title,
   );
@@ -43,11 +43,6 @@ const WinGoGameSection = () => {
     return () => clearInterval(timer);
   }, [dispatch]);
 
-  const formatTime = seconds =>
-    `${Math.floor(seconds / 60)
-      .toString()
-      .padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
-
   const getTableData = useCallback(() => {
     switch (activeTableBtn) {
       case 'Chart':
@@ -58,6 +53,11 @@ const WinGoGameSection = () => {
         return <GameHistoryTable />;
     }
   }, [activeTableBtn]);
+
+  const onClose = useCallback(() => {
+    setOpenBigSmallModal(false);
+    dispatch(reset());
+  }, [dispatch]);
 
   return (
     <View>
@@ -123,13 +123,10 @@ const WinGoGameSection = () => {
         </View>
 
         {/* Betting Selection Buttons */}
-        <View style={styles.flexRowBetween}>
-          <BettingOptions
-            options={gameBattingData}
-            selectedOption={activeXTitle}
-            onSelect={setActiveXTitle}
-          />
-        </View>
+        <BettingOptions
+          options={gameBattingData}
+          containerStyle={{marginVertical: 10}}
+        />
 
         <View style={styles.flexRowBetween}>
           {battingButton.map((item, index) => (
@@ -147,26 +144,17 @@ const WinGoGameSection = () => {
         </View>
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginVertical: 20,
-        }}>
+      <View style={styles.battingRow}>
         {battingTableButton.map((item, index) => (
           <Button
             key={index}
             onPress={() => setActiveTableBtn(item.title)}
             title={item.title}
             customStyle={[
-              styles.button,
-              index !== 0 && styles.buttonMargin,
+              styles.tableBtn,
               activeTableBtn === item.title && styles.activeTableButton,
-              {
-                width: 'auto',
-              },
             ]}
-            textStyle={{fontSize: 14}}
+            textStyle={styles.battingText}
           />
         ))}
       </View>
@@ -174,7 +162,7 @@ const WinGoGameSection = () => {
       {getTableData()}
       <BigSmallModal
         isVisible={openBigSmallModal}
-        onClose={() => setOpenBigSmallModal(false)}
+        onClose={onClose}
         buttonTitle={buttonTitle}
         selectedBtnColor={selectedBtnColor}
       />

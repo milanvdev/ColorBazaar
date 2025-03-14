@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { Fonts } from '../../style/fonts';
-
+import {Fonts} from '../../style/fonts';
 
 export default StyleSheet.create({
   // General Spacing
@@ -129,6 +128,11 @@ export default StyleSheet.create({
     backgroundColor: '#1A1C26',
   },
 
+  tableBtn: {
+    borderRadius: 10,
+    backgroundColor: '#1A1C26',
+  },
+
   // Table Styles
   container: {
     backgroundColor: '#272932',
@@ -208,4 +212,12 @@ export default StyleSheet.create({
   greenButton: {backgroundColor: '#17B15E'},
   violetButton: {backgroundColor: '#9B48DB'},
   redButton: {backgroundColor: '#D23838'},
+
+  battingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 20,
+    gap: 10,
+  },
+  battingText: {fontSize: 14},
 });

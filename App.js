@@ -1,12 +1,16 @@
 import React from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
 import {StyleSheet, View} from 'react-native';
+import {Provider} from 'react-redux';
+import store from './src/redux/store';
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <AppNavigator />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <AppNavigator />
+      </View>
+    </Provider>
   );
 };
 

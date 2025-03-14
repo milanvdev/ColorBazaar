@@ -26,16 +26,13 @@ const CommonModal = ({
 const styles = StyleSheet.create({
   modal: {
     justifyContent: 'flex-end',
-    margin: 0,
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    overflow: 'hidden',
   },
   modalContent: {
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
     position: 'absolute',
     bottom: 0,
     width: '100%',
